@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rove — van rental booking system
 
-## Getting Started
+A small, complete booking product: three vans, live availability, an admin
+dashboard, and a simulated van lock. Built as a technical assignment, so the
+emphasis is on correctness of the booking rules, a clean UI, and documentation
+that explains every decision.
 
-First, run the development server:
+| | |
+|---|---|
+| **Live app** | _filled in after deployment_ |
+| **Admin** | `/admin/login` — password is the `ADMIN_PASSWORD` env var |
+| **Stack** | Next.js 16 · React 19 · TypeScript · Tailwind 4 · shadcn/ui · Prisma 7 · Postgres (Neon) |
+| **Docs** | [`context/`](./context) — spec, architecture, ADRs, milestones, runbook |
+
+![Home page](./docs/screenshots/home.png)
+
+## What it does
+
+**Customer**
+
+- Browse three vans with photos, specs, features, and daily prices.
+- Pick a date range in a calendar that greys out nights already booked.
+- Enter name, email, and phone; see the price breakdown before confirming.
+- Receive a booking reference (`RV-XXXXXX`) and a six-digit unlock code.
+- Reopen the booking from `/manage` at any time.
+- Lock and unlock the van from the booking page — only during the rental
+  window, every toggle recorded.
+
+**Admin**
+
+- Password-protected dashboard with confirmed / active / upcoming counts and
+  booked revenue.
+- Searchable reservation table, filterable by status.
+- Reservation detail with customer contact, price breakdown, lock state, and
+  the full lock event log.
+- Cancel a reservation (dates are released immediately) or override the lock.
+
+## The rules that matter
+
+- Dates are **half-open**: a reservation occupies `[pickup, return)`. A van
+  returned on the 12th can be picked up on the 12th.
+- A van can never hold two confirmed reservations on the same night. This is
+  enforced three times over: in the UI, in a serializable transaction, and by
+  a Postgres `EXCLUDE USING gist` constraint. The database is the final word.
+- Price is `nights × daily rate + one-off cleaning fee`, snapshotted onto the
+  reservation so historical totals never drift.
+- The lock only responds while `pickup ≤ today ≤ return`; outside that window
+  the API refuses and the button is disabled with a reason.
+
+## Run it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env        # add DATABASE_URL, DIRECT_URL, ADMIN_PASSWORD, SESSION_SECRET
+pnpm db:migrate             # apply migrations
+pnpm db:seed                # 3 vans + 2 demo reservations
+pnpm dev                    # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`pnpm build` runs `prisma generate` first, so a fresh clone builds on Vercel
+without a manual step.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script | Purpose |
+|---|---|
+| `pnpm dev` | Development server |
+| `pnpm build` | Prisma generate + production build |
+| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm lint` | ESLint (Next config) |
+| `pnpm test` | 22 unit tests (Vitest) |
+| `pnpm test:e2e` | Playwright: booking, overlap, lookup, admin, lock, mobile |
+| `pnpm db:migrate` | `prisma migrate deploy` |
+| `pnpm db:seed` | Idempotent seed |
+| `pnpm db:studio` | Prisma Studio |
 
-## Learn More
+## Project layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    page.tsx                     marketing home + fleet
+    vans/[slug]/page.tsx         van detail + booking form
+    reservations/[reference]/    confirmation, unlock code, lock control
+    manage/                      reference lookup
+    admin/login/                 password sign-in
+    admin/(dashboard)/           protected dashboard + detail
+    actions/                     server actions (booking, lock, admin)
+  components/                    UI (shadcn primitives in ui/)
+  lib/                           dates, pricing, availability, validation, db, auth
+  store/                         Redux Toolkit booking draft
+  proxy.ts                       Next 16 proxy (formerly middleware)
+prisma/                          schema, hand-edited SQL constraints, seed
+context/                         product spec, architecture, ADRs, runbook
+tests/unit/                      Vitest
+e2e/                             Playwright
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Photography is from Pexels (free licence); images are committed locally so
+  the site never depends on a third-party CDN.
+- The lock is simulated. There is no vehicle integration, and the UI says so.
+- Payments, email delivery, and driver verification are deliberately out of
+  scope — see [`context/10-known-limits.md`](./context/10-known-limits.md).
