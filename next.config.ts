@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  /*
+   * Cache Components is off on purpose: every van page reads live
+   * reservations, and a cached booking page would show stale availability.
+   */
+  cacheComponents: false,
   turbopack: {
     rules: {
       "*.css": {
