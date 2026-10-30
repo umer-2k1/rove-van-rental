@@ -75,8 +75,14 @@ export default async function AdminDashboardPage({
             <dt className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               {stat.label}
             </dt>
-            <dd className="num mt-2 text-[22px] leading-none">{stat.value}</dd>
-            <p className="mt-1.5 text-[11px] text-muted-foreground">{stat.note}</p>
+            <dd>
+              <span className="num mt-2 block text-[22px] leading-none">
+                {stat.value}
+              </span>
+              <span className="mt-1.5 block text-[11px] text-muted-foreground">
+                {stat.note}
+              </span>
+            </dd>
           </div>
         ))}
       </dl>

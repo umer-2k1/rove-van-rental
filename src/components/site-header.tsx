@@ -28,7 +28,6 @@ export function SiteHeader() {
         <Link
           href="/"
           className="flex items-baseline gap-3"
-          aria-label="Rove — home"
         >
           <span className="text-[19px] font-semibold tracking-[-0.03em]">
             ROVE

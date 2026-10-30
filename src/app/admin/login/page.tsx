@@ -14,18 +14,18 @@ export default function AdminLoginPage() {
       <div className="hidden flex-col justify-between bg-foreground p-10 text-background lg:flex xl:p-14">
         <p className="text-[19px] font-semibold tracking-[-0.03em]">ROVE</p>
         <div>
-          <p className="text-[10.5px] uppercase tracking-[0.18em] text-background/50">
+          <p className="text-[10.5px] uppercase tracking-[0.18em] text-background/65">
             Operations
           </p>
           <h1 className="mt-4 max-w-sm text-[clamp(1.9rem,3vw,2.6rem)] text-background">
             Every booking, one table.
           </h1>
-          <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-background/60">
+          <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-background/70">
             Reservations, lock activity, and cancellations. Authorised staff
             only.
           </p>
         </div>
-        <p className="text-[11px] text-background/40">
+        <p className="text-[11px] text-background/65">
           Rove Van Rental · Oakland, CA
         </p>
       </div>

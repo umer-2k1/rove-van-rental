@@ -204,7 +204,6 @@ export function BookingForm({ van, bookedRanges }: Props) {
             <PopoverTrigger asChild>
               <button
                 type="button"
-                aria-labelledby="dates-label dates-value"
                 aria-describedby="dates-help"
                 className="grid w-full grid-cols-2 divide-x divide-border rounded-lg border border-input bg-background text-left transition-colors hover:border-ring"
               >
@@ -231,11 +230,6 @@ export function BookingForm({ van, bookedRanges }: Props) {
                   >
                     {returnDate ? formatDate(returnDate, "EEE d MMM") : "Add date"}
                   </span>
-                </span>
-                <span id="dates-value" className="sr-only">
-                  {pickupDate && returnDate
-                    ? `Pickup ${formatDate(pickupDate)}, return ${formatDate(returnDate)}`
-                    : "No dates selected"}
                 </span>
               </button>
             </PopoverTrigger>

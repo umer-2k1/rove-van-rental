@@ -41,21 +41,15 @@ export function VanCard({ van }: { van: VanSummary }) {
 
       <p className="mt-1 text-sm text-muted-foreground">{van.tagline}</p>
 
-      <dl className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-3 text-[12px] text-muted-foreground">
+      <dl className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-border pt-3 text-[12px] text-muted-foreground">
         <div className="flex items-center gap-1.5">
           <dt className="sr-only">Seats</dt>
           <dd className="num">{van.seats} seats</dd>
         </div>
-        <span aria-hidden="true" className="text-border">
-          /
-        </span>
         <div className="flex items-center gap-1.5">
           <dt className="sr-only">Sleeps</dt>
           <dd className="num">sleeps {van.sleeps}</dd>
         </div>
-        <span aria-hidden="true" className="text-border">
-          /
-        </span>
         <div className="flex items-center gap-1.5">
           <dt className="sr-only">Transmission</dt>
           <dd>{van.transmission}</dd>
