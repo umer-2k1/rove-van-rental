@@ -7,8 +7,8 @@ that explains every decision.
 
 | | |
 |---|---|
-| **Live app** | _filled in after deployment_ |
-| **Admin** | `/admin/login` — password is the `ADMIN_PASSWORD` env var |
+| **Live app** | https://rove-van-rental.vercel.app |
+| **Admin** | `/admin/login` — demo password `admin@123.` |
 | **Stack** | Next.js 16 · React 19 · TypeScript · Tailwind 4 · shadcn/ui · Prisma 7 · Postgres (Neon) |
 | **Docs** | [`context/`](./context) — spec, architecture, ADRs, milestones, runbook |
 

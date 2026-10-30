@@ -1,5 +1,14 @@
 # 09 · Runbook
 
+## Current deployment
+
+| | |
+|---|---|
+| App | https://rove-van-rental.vercel.app |
+| Vercel project | `umermemon4648s-projects/rove-van-rental` |
+| Database | Neon Postgres, `us-east-2` |
+| Auto-deploy | Connected to `main` on GitHub |
+
 ## Prerequisites
 
 - Node 20.9+ (developed on 22.23)

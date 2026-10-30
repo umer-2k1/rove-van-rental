@@ -132,7 +132,7 @@ overlapping row fails with `23P01`; E2E overlap assertion.
 - Deployment to Vercel with Neon; smoke test on the deployed URL.
 - Git history grouped by milestone.
 
-**Evidence:** this folder, the Vercel deployment, the GitHub repository.
+**Evidence:** this folder, https://rove-van-rental.vercel.app, the GitHub repository.
 
 ---
 
