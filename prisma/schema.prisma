@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Van {
+  id               String        @id @default(cuid())
+  slug             String        @unique
+  name             String
+  tagline          String
+  description      String
+  dailyRateCents   Int
+  cleaningFeeCents Int
+  seats            Int
+  sleeps           Int
+  transmission     String
+  fuel             String
+  drivetrain       String
+  imageUrl         String
+  imageAlt         String
+  imagePosition    String        @default("50% 50%")
+  features         String[]
+  sortOrder        Int           @default(0)
+  createdAt        DateTime      @default(now())
+  reservations     Reservation[]
+
+  @@index([sortOrder])
+}
+
+enum ReservationStatus {
+  CONFIRMED
+  CANCELLED
+}
+
+enum LockAction {
+  LOCK
+  UNLOCK
+}
+
+enum LockSource {
+  CUSTOMER
+  ADMIN
+}
+
+model Reservation {
+  id               String            @id @default(cuid())
+  reference        String            @unique
+  vanId            String
+  van              Van               @relation(fields: [vanId], references: [id], onDelete: Restrict)
+  pickupDate       DateTime          @db.Date
+  returnDate       DateTime          @db.Date
+  customerName     String
+  customerEmail    String
+  customerPhone    String
+  days             Int
+  dailyRateCents   Int
+  cleaningFeeCents Int
+  totalCents       Int
+  status           ReservationStatus @default(CONFIRMED)
+  isLocked         Boolean           @default(true)
+  unlockCode       String
+  createdAt        DateTime          @default(now())
+  cancelledAt      DateTime?
+  events           LockEvent[]
+
+  @@index([vanId, pickupDate, returnDate])
+  @@index([customerEmail])
+  @@index([status, pickupDate])
+}
+
+model LockEvent {
+  id            String      @id @default(cuid())
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  action        LockAction
+  source        LockSource
+  createdAt     DateTime    @default(now())
+
+  @@index([reservationId, createdAt])
+}
