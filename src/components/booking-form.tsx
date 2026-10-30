@@ -196,16 +196,16 @@ export function BookingForm({ van, bookedRanges }: Props) {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5" noValidate>
         <div>
-          <Label htmlFor="dates-trigger" className="eyebrow mb-2 block">
+          <p id="dates-label" className="eyebrow mb-2">
             Dates
-          </Label>
+          </p>
 
           <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
             <PopoverTrigger asChild>
               <button
                 type="button"
-                id="dates-trigger"
-                aria-label="Choose pickup and return dates"
+                aria-labelledby="dates-label dates-value"
+                aria-describedby="dates-help"
                 className="grid w-full grid-cols-2 divide-x divide-border rounded-lg border border-input bg-background text-left transition-colors hover:border-ring"
               >
                 <span className="px-3 py-2.5">
@@ -231,6 +231,11 @@ export function BookingForm({ van, bookedRanges }: Props) {
                   >
                     {returnDate ? formatDate(returnDate, "EEE d MMM") : "Add date"}
                   </span>
+                </span>
+                <span id="dates-value" className="sr-only">
+                  {pickupDate && returnDate
+                    ? `Pickup ${formatDate(pickupDate)}, return ${formatDate(returnDate)}`
+                    : "No dates selected"}
                 </span>
               </button>
             </PopoverTrigger>
@@ -258,7 +263,7 @@ export function BookingForm({ van, bookedRanges }: Props) {
             </PopoverContent>
           </Popover>
 
-          <p className="mt-2 text-[11px] text-muted-foreground">
+          <p className="mt-2 text-[11px] text-muted-foreground" id="dates-help">
             {days > 0
               ? `${days} ${days === 1 ? "night" : "nights"} · ${formatDate(
                   pickupDate,
