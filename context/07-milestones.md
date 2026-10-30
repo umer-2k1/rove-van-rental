@@ -114,8 +114,8 @@ overlapping row fails with `23P01`; E2E overlap assertion.
 **Goal.** The rules are pinned down.
 
 - 22 Vitest tests: dates, overlap, pricing, validation.
-- 5 Playwright tests: booking + persistence + overlap, lookup, admin auth +
-  search + cancel, lock window, mobile.
+- 7 Playwright tests: booking + persistence + overlap, lookup, admin auth +
+  search + cancel, lock window, mobile, and axe WCAG A/AA scans.
 - All run against the real database, not mocks.
 
 **Evidence:** `pnpm test`, `pnpm test:e2e` output in

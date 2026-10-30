@@ -24,6 +24,6 @@ test("mobile: navigation, fleet, and no horizontal overflow", async ({ page }) =
   );
   expect(vanOverflow).toBeLessThanOrEqual(1);
   await expect(
-    page.getByRole("button", { name: /^Dates/ }),
+    page.getByRole("button", { name: /Pickup/ }),
   ).toBeVisible();
 });

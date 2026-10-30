@@ -41,7 +41,7 @@ async function pickDate(page: Page, isoDate: string) {
 }
 
 async function chooseRange(page: Page, pickup: string, dropoff: string) {
-  await page.getByRole("button", { name: /^Dates/ }).click();
+  await page.getByRole("button", { name: /Pickup/ }).click();
   await expect(page.locator('[role="grid"]')).toBeVisible();
   await pickDate(page, pickup);
   await page.waitForTimeout(250);

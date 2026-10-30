@@ -36,6 +36,8 @@ testing in Asia/Karachi and is now locked down.
 | `admin signs in, finds the reservation, and cancels it` | `/admin` unauthenticated, wrong password, correct password, search, open, cancel via dialog | Redirect to login, error text, table row, detail, cancel toast, status pill |
 | `lock control works only inside the rental window` | A fixture with pickup yesterday; unlock, reload, lock; a future fixture | State changes, persists, future booking is disabled with a reason |
 | `mobile: navigation, fleet, and no horizontal overflow` | 390 px viewport | No horizontal scroll, sheet opens, manage page reachable, van form visible |
+| `accessibility: public pages` | axe scan of home, van detail, manage, reservation | Zero WCAG 2.1 A/AA violations |
+| `accessibility: admin sign-in and dashboard` | axe scan of login and dashboard | Zero WCAG 2.1 A/AA violations |
 
 Fixtures are inserted with plain SQL (`e2e/fixtures.ts`) because the generated
 Prisma client is ESM and Playwright transpiles tests to CommonJS.

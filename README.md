@@ -69,7 +69,7 @@ without a manual step.
 | `pnpm typecheck` | `tsc --noEmit` |
 | `pnpm lint` | ESLint (Next config) |
 | `pnpm test` | 22 unit tests (Vitest) |
-| `pnpm test:e2e` | Playwright: booking, overlap, lookup, admin, lock, mobile |
+| `pnpm test:e2e` | Playwright: booking, overlap, lookup, admin, lock, mobile, axe accessibility |
 | `pnpm db:migrate` | `prisma migrate deploy` |
 | `pnpm db:seed` | Idempotent seed |
 | `pnpm db:studio` | Prisma Studio |
