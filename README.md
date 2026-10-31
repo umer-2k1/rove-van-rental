@@ -1,14 +1,19 @@
 # Rove — van rental booking system
 
+> **Interview task.** This project was built as a take-home technical assignment
+> for a job interview, not as a commercial product. The brief is reproduced
+> verbatim in [`context/00-product-brief.md`](./context/00-product-brief.md),
+> and the scope cuts are documented in
+> [`context/10-known-limits.md`](./context/10-known-limits.md).
+
 A small, complete booking product: three vans, live availability, an admin
-dashboard, and a simulated van lock. Built as a technical assignment, so the
-emphasis is on correctness of the booking rules, a clean UI, and documentation
-that explains every decision.
+dashboard, and a simulated van lock. The emphasis is on correctness of the
+booking rules, a clean UI, and documentation that explains every decision.
 
 | | |
 |---|---|
 | **Live app** | https://rove-van-rental.vercel.app |
-| **Admin** | `/admin/login` — demo password `admin@123.` |
+| **Admin** | `/admin/login` — demo password `admin@123` |
 | **Stack** | Next.js 16 · React 19 · TypeScript · Tailwind 4 · shadcn/ui · Prisma 7 · Postgres (Neon) |
 | **Docs** | [`context/`](./context) — spec, architecture, ADRs, milestones, runbook |
 
